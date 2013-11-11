@@ -1,0 +1,7 @@
+{
+	"name": "Terminus-37",
+	"version": "0.0.5",
+	"dependencies": {
+		"ncurses":"latest"
+	}
+}

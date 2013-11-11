@@ -1,4 +1,5 @@
 var ncurses = require("ncurses"),
+	spaceCraft = require("./lib/spacecraft"),
 	win = new ncurses.Window();
 
 ncurses.raw = true;
@@ -6,51 +7,23 @@ ncurses.showCursor = false;
 
 var attrs = win.attrs,
 	colors = win.colors,
-	gameOn = false;
-	
-/* Space Craft */
-var top = "  ^  \n",
-	middle = " ^^^ \n"
-	bottom = "^^^^^",
-	spaceCraft = top + middle + bottom,
-	craftX = 0,
-	position = ncurses.lines - 3;
-
-/* Functions */
-
-var moveLeft = function moveLeft() {
-	win.clear();
-	craftX--;
-	middle = middle.slice(1, middle.length);
-	bottom = bottom.slice(1, bottom.length);
-	spaceCraft = top + middle + bottom;
-	win.print(position, craftX, spaceCraft);
-	win.refresh();
-};
-
-var moveRight = function moveRight() {
-	win.clear();
-	craftX++;
-	middle = " " + middle;
-	bottom = " " + bottom;
-	spaceCraft = top + middle + bottom;
-	win.print(position, craftX, spaceCraft);
-	win.refresh();
-};
+	gameOn = false,
+	lines = ncurses.lines,
+	craft = spaceCraft.init(lines);
 
 win.on("inputChar", function(character, inputChar, isKey) {
 	if (inputChar === 27) {
 		win.close();
 	} else if (gameOn === true && inputChar === 261 && craftX < ncurses.cols - 6) {
 		/* pressing right */
-		moveRight();
+		spaceCraft.moveRight(win, ncurses);
 	} else if (gameOn === true && inputChar === 260 && craftX > 1) {
 		/* pressing left */
-		moveLeft();
+		spaceCraft.moveLeft(win, ncurses);
 	}
 });
 
-win.print(position, craftX, spaceCraft);
+win.print(position, craftX, craft);
 gameOn = true;
 win.refresh();
 
