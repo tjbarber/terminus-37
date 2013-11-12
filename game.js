@@ -1,7 +1,6 @@
 var ncurses = require("ncurses"),
 	spaceCraft = require("./lib/spacecraft"),
-	mainWin = new ncurses.Window(),
-	craftWin = new ncurses.Window(ncurses.lines, ncurses.cols);
+	mainWin = new ncurses.Window();
 
 ncurses.raw = true;
 ncurses.showCursor = false;
