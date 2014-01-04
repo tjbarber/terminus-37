@@ -1,0 +1,1 @@
+terminus-37 was nothing more than a test to try and create an arcade-style game using NCURSES and Node.js. Due to the limitations of the NCURSES library I was using and the fact that I discovered that I liked game programming, I'm continuing this little project in <a href="https://github.com/tjbarber/terminus-38">terminus-38</a>.
